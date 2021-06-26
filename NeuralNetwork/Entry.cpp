@@ -104,7 +104,7 @@ struct NeuralNetwork {
 			for (int neu = 0; neu < currentLayer.size(); ++neu)
 			{
 				auto& currentNeuron = currentLayer[neu];
-				float dA_dZ = SigmoidDerivative(currentNeuron.value);
+				float dA_dZ = SigmoidDerivative(currentNeuron.activation);
 
 				float dC_dB = currentNeuron.dC_dA * dA_dZ;
 				currentNeuron.eBias += dC_dB;
@@ -247,7 +247,7 @@ int main(int argc, char* argv[])
 			nn.SetTarget(target);
 			costs[i] = nn.Train();
 		}
-		nn.Learn(60000, 0.9f);
+		nn.Learn(60000, 5.0f);
 		nn.Wipe();
 
 		float cost_avg = 0.0f;
